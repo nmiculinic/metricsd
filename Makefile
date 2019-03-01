@@ -4,14 +4,14 @@ all: build test
 
 .PHONY: all
 build:
-	go build -o metricsd .
+	go build -o metricsd ./cmd/metricsd
 .PHONY: build
 
 run: build
 	./metricsd
 
 test:
-	go test -race .
+	go test -race ./...
 .PHONY: test
 
 docker: build
