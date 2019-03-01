@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package metricsd;
+option go_package = "metricsd";
+
+message Empty {}
+
+message Measurement {
+    float timeslice = 1;
+    float cpu = 2;
+    float mem = 3;
+}
+
+message NodeMeasurement {
+    repeated Measurement measurements = 1;
+    string Nodename = 2;
+}
+
+message ProcessMeasurement {
+    repeated Measurement measurements = 1;
+    string Nodename = 2;
+    string ProcessName = 3;
+}
+
+
+service MetricsService {
+    rpc ReportProcessMeasurement(ProcessMeasurement) returns (Empty);
+    rpc ReportNodeMeasurement(NodeMeasurement) returns (Empty);
+}
