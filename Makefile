@@ -11,7 +11,7 @@ run: build
 	./metricsd
 
 test:
-	go test -race ./...
+	go test -race .
 .PHONY: test
 
 docker: build
