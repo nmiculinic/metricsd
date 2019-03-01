@@ -30,7 +30,6 @@ build:
   - make build
   stage: build
   tags:
-  - ascalia
   - docker
 build_docker:
   dependencies:
@@ -43,86 +42,16 @@ build_docker:
     FROM alpine
     RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
     WORKDIR /bin
-    COPY build/metrics .
-    ENTRYPOINT [ "/bin/drone-mock-generator" ]
+    COPY metricsd .
+    ENTRYPOINT [ "/bin/metricsd" ]
     EOF
   - cat pack.Dockerfile
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_REF_NAME
-    .
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_SHA
-    .
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_REF_NAME
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_SHA
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_REF_NAME
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_SHA
-  - |
-    cat << EOF > pack.Dockerfile
-    FROM alpine
-    RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
-    WORKDIR /bin
-    COPY build/drone-mep .
-    ENTRYPOINT [ "/bin/drone-mep" ]
-    EOF
-  - cat pack.Dockerfile
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_REF_NAME
-    .
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_SHA
-    .
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_REF_NAME
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_SHA
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_REF_NAME
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_SHA
-  - |
-    cat << EOF > pack.Dockerfile
-    FROM alpine
-    RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
-    WORKDIR /bin
-    COPY build/listener-sigfox .
-    ENTRYPOINT [ "/bin/listener-sigfox" ]
-    EOF
-  - cat pack.Dockerfile
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_REF_NAME
-    .
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_SHA
-    .
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_REF_NAME
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_SHA
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_REF_NAME
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_SHA
-  - |
-    cat << EOF > pack.Dockerfile
-    FROM alpine
-    RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
-    WORKDIR /bin
-    COPY build/listener-smartsense .
-    ENTRYPOINT [ "/bin/listener-smartsense" ]
-    EOF
-  - cat pack.Dockerfile
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_REF_NAME
-    .
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_SHA
-    .
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_REF_NAME
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_SHA
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_REF_NAME
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_SHA
-  - |
-    cat << EOF > pack.Dockerfile
-    FROM alpine
-    RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
-    WORKDIR /bin
-    COPY build/api-server .
-    ENTRYPOINT [ "/bin/api-server" ]
-    EOF
-  - cat pack.Dockerfile
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_REF_NAME
-    .
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_SHA
-    .
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_REF_NAME
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_SHA
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_REF_NAME
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_SHA
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME .
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_SHA .
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_SHA
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_SHA
   services:
   - docker:dind
   stage: docker
