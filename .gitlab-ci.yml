@@ -37,6 +37,7 @@ build_docker:
   image: docker:git
   script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  - ls
   - |
     cat << EOF > pack.Dockerfile
     FROM alpine
