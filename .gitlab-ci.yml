@@ -25,10 +25,10 @@ build:
   - go env
   - du -sh $GOPATH
   - du -sh $GOCACHE
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-    - .cache
+#  cache:
+#    key: ${CI_COMMIT_REF_SLUG}
+#    paths:
+#    - .cache
   image: golang:1.12
   script:
   - make test
