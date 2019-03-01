@@ -3,6 +3,10 @@ stages:
 - docker
 - deploy
 
+variables:
+  GIT_STRATEGY: fetch
+  GIT_SUBMODULE_STRATEGY: none
+
 build:
   after_script:
   - du -sh .cache
@@ -11,7 +15,7 @@ build:
   artifacts:
     expire_in: 30 days
     paths:
-    - build
+    - metricsd
   before_script:
   - mkdir -p .cache/go    || true
   - mkdir -p .cache/cache || true
