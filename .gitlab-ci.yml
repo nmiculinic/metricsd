@@ -1,0 +1,153 @@
+stages:
+- build
+- docker
+- deploy
+
+build:
+  after_script:
+  - du -sh .cache
+  - du -sh $GOPATH
+  - du -sh $GOCACHE
+  artifacts:
+    expire_in: 30 days
+    paths:
+    - build
+  before_script:
+  - mkdir -p .cache/go    || true
+  - mkdir -p .cache/cache || true
+  - export GOPATH=$(pwd)/.cache/go
+  - export GOCACHE=$(pwd)/.cache/cache
+  - go env
+  - du -sh $GOPATH
+  - du -sh $GOCACHE
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+    - .cache
+  image: golang:1.11
+  script:
+  - make test
+  - make build
+  stage: build
+  tags:
+  - ascalia
+  - docker
+build_docker:
+  dependencies:
+  - build
+  image: docker:git
+  script:
+  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  - |
+    cat << EOF > pack.Dockerfile
+    FROM alpine
+    RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+    WORKDIR /bin
+    COPY build/metrics .
+    ENTRYPOINT [ "/bin/drone-mock-generator" ]
+    EOF
+  - cat pack.Dockerfile
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_REF_NAME
+    .
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_SHA
+    .
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_REF_NAME
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_SHA
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_REF_NAME
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mock-generator:$CI_COMMIT_SHA
+  - |
+    cat << EOF > pack.Dockerfile
+    FROM alpine
+    RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+    WORKDIR /bin
+    COPY build/drone-mep .
+    ENTRYPOINT [ "/bin/drone-mep" ]
+    EOF
+  - cat pack.Dockerfile
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_REF_NAME
+    .
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_SHA
+    .
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_REF_NAME
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_SHA
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_REF_NAME
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/drone-mep:$CI_COMMIT_SHA
+  - |
+    cat << EOF > pack.Dockerfile
+    FROM alpine
+    RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+    WORKDIR /bin
+    COPY build/listener-sigfox .
+    ENTRYPOINT [ "/bin/listener-sigfox" ]
+    EOF
+  - cat pack.Dockerfile
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_REF_NAME
+    .
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_SHA
+    .
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_REF_NAME
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_SHA
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_REF_NAME
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-sigfox:$CI_COMMIT_SHA
+  - |
+    cat << EOF > pack.Dockerfile
+    FROM alpine
+    RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+    WORKDIR /bin
+    COPY build/listener-smartsense .
+    ENTRYPOINT [ "/bin/listener-smartsense" ]
+    EOF
+  - cat pack.Dockerfile
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_REF_NAME
+    .
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_SHA
+    .
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_REF_NAME
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_SHA
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_REF_NAME
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/listener-smartsense:$CI_COMMIT_SHA
+  - |
+    cat << EOF > pack.Dockerfile
+    FROM alpine
+    RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+    WORKDIR /bin
+    COPY build/api-server .
+    ENTRYPOINT [ "/bin/api-server" ]
+    EOF
+  - cat pack.Dockerfile
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_REF_NAME
+    .
+  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_SHA
+    .
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_REF_NAME
+  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_SHA
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_REF_NAME
+  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH/api-server:$CI_COMMIT_SHA
+  services:
+  - docker:dind
+  stage: docker
+  tags:
+  - docker
+
+staging-api-server-deploy:
+  # TODO enable gitlab  integration with k8s
+  before_script:
+  - mkdir -p ~/.kube || true
+  - echo $KUBECONFIG_FILE | base64 -d > ~/.kube/config
+  image:
+    entrypoint:
+    - /bin/ash
+    - -c
+    name: lachlanevenson/k8s-kubectl:v1.13.2
+  only:
+  - staging
+  script:
+  - kubectl --namespace dev set image deployment/metrics metrics=${SHA_IMAGE} --record
+  stage: deploy
+  tags:
+  - docker
+  variables:
+    GIT_STRATEGY: none
+    GIT_SUBMODULE_STRATEGY: none
+    SHA_IMAGE: ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_SHA
+  when: manual #  TODO enable always
