@@ -1,3 +1,4 @@
 metricsd
 .idea
 vendor
+pack.Dockerfile
