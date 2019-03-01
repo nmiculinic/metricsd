@@ -13,7 +13,3 @@ test:
 docker: build
 	IMAGE=$(IMAGE) ./.build_docker.sh
 .PHONY: docker-build
-
-docker-ci:
-	IMAGE=$(IMAGE) ./.build_docker.sh
-.PHONY: docker-build
