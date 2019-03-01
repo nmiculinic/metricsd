@@ -6,7 +6,7 @@ stages:
 variables:
   GIT_STRATEGY: fetch
   GIT_SUBMODULE_STRATEGY: none
-  GO111MODULE: on
+  GO111MODULE: "on"
 
 build:
   after_script:
