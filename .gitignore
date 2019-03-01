@@ -2,3 +2,4 @@ metricsd
 .idea
 vendor
 pack.Dockerfile
+.cache
