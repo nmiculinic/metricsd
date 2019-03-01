@@ -1,3 +1,5 @@
+IMAGE=gitlab.com/neven-miculinic/metricsd
+
 all: build test
 
 .PHONY: all
@@ -7,6 +9,11 @@ build:
 test:
 	go test -race ./...
 .PHONY: test
-docker-build:
-	echo "TODO"
+
+docker: build
+	IMAGE=$(IMAGE) ./.build_docker.sh
+.PHONY: docker-build
+
+docker-ci:
+	IMAGE=$(IMAGE) ./.build_docker.sh
 .PHONY: docker-build

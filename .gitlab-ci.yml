@@ -37,22 +37,8 @@ build_docker:
   image: docker:git
   script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-  - ls
-  - |
-    cat << EOF > pack.Dockerfile
-    FROM alpine
-    RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
-    WORKDIR /bin
-    COPY metricsd .
-    ENTRYPOINT [ "/bin/metricsd" ]
-    EOF
-  - cat pack.Dockerfile
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME .
-  - docker build -f pack.Dockerfile -t ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_SHA .
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME
-  - docker push ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_SHA
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME
-  - echo pushed ${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_SHA
+  - make -e IMAGE=${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME  docker-ci
+  - make -e IMAGE=${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_SHA . docker-ci
   services:
   - docker:dind
   stage: docker
