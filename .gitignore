@@ -1,4 +1,4 @@
-metricsd
+/metricsd
 .idea
 vendor
 pack.Dockerfile

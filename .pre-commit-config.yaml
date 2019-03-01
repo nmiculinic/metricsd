@@ -20,5 +20,5 @@ repos:
     rev: v0.3.2
     hooks:
     - id: go-fmt
-    - id: go-vet
+    # - id: go-vet
     # - id: gometalinter  It's noisy

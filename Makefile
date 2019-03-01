@@ -6,6 +6,10 @@ all: build test
 build:
 	go build -o metricsd .
 .PHONY: build
+
+run: build
+	./metricsd
+
 test:
 	go test -race ./...
 .PHONY: test
@@ -13,3 +17,12 @@ test:
 docker: build
 	IMAGE=$(IMAGE) ./.build_docker.sh
 .PHONY: docker-build
+
+proto: service.proto
+	protoc -I . --gogom_out=plugins=grpc:./pkg/metricsd service.proto
+
+.PHONY: proto
+
+clean:
+	go clean -cache -modcache -testcache
+.PHONY: clean

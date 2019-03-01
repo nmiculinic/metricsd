@@ -1,3 +1,10 @@
-module gitlab.com/neven-miculinic/metrics_agent
+module github.com/nmiculinic/metricsd
 
-require github.com/sirupsen/logrus v1.3.0
+go 1.12
+
+require (
+	github.com/gogo/protobuf v1.2.1
+	github.com/sirupsen/logrus v1.3.0
+	github.com/spf13/pflag v1.0.3
+	google.golang.org/grpc v1.19.0
+)
