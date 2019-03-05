@@ -29,6 +29,7 @@ Install prereq:
 * [ ] Add metrics quering
 * [ ] Add golden file test
 * [ ] Add pod local memcache
+* [ ] Optimize insertions with prepared queries
 
 # Deployment
 
