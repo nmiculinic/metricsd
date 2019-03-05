@@ -5,25 +5,58 @@ option go_package = "metricsd";
 
 message Empty {}
 
-message Measurement {
+
+message NodeMeasurement {
     float timeslice = 1;
     float cpu = 2;
     float mem = 3;
-}
-
-message NodeMeasurement {
-    repeated Measurement measurements = 1;
-    string Nodename = 2;
+    string nodename = 4;
 }
 
 message ProcessMeasurement {
-    repeated Measurement measurements = 1;
-    string Nodename = 2;
-    string ProcessName = 3;
+    float timeslice = 1;
+    float cpu = 2;
+    float mem = 3;
+    string nodename = 4;
+    string process_name = 5;
 }
+
+message NodeAvgReq {
+    float timeslice = 1;
+}
+
+message NodeAvgResp {
+    float timeslice = 1;
+    float cpu_used = 2;
+    float mem_used = 3;
+}
+
+message ProcessesAvgReq {
+    float timeslice = 1;
+}
+
+message ProcessesAvgResp {
+    float timeslice = 1;
+    repeated string processes = 2;
+}
+
+message ProcessAvgReq {
+    float timeslice = 1;
+}
+
+message ProcessAvgResp {
+    float timeslice = 1;
+    float cpu_used = 2;
+    float mem_used = 3;
+    uint32 num_instances = 4;
+}
+
 
 
 service MetricsService {
     rpc ReportProcessMeasurement(ProcessMeasurement) returns (Empty);
     rpc ReportNodeMeasurement(NodeMeasurement) returns (Empty);
+    rpc NodeAverages(NodeAvgReq) returns (NodeAvgResp);
+    rpc ProcessesAverages(ProcessesAvgReq) returns (ProcessesAvgResp);
+    rpc ProcessAverage(ProcessAvgReq) returns (ProcessAvgResp);
 }

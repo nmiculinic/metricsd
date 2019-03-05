@@ -63,78 +63,19 @@ func (m *Empty) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
-type Measurement struct {
+type NodeMeasurement struct {
 	Timeslice            float32  `protobuf:"fixed32,1,opt,name=timeslice,proto3" json:"timeslice,omitempty"`
 	Cpu                  float32  `protobuf:"fixed32,2,opt,name=cpu,proto3" json:"cpu,omitempty"`
 	Mem                  float32  `protobuf:"fixed32,3,opt,name=mem,proto3" json:"mem,omitempty"`
+	Nodename             string   `protobuf:"bytes,4,opt,name=nodename,proto3" json:"nodename,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Measurement) Reset()      { *m = Measurement{} }
-func (*Measurement) ProtoMessage() {}
-func (*Measurement) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a0b84a42fa06f626, []int{1}
-}
-func (m *Measurement) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *Measurement) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_Measurement.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalTo(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *Measurement) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Measurement.Merge(m, src)
-}
-func (m *Measurement) XXX_Size() int {
-	return m.Size()
-}
-func (m *Measurement) XXX_DiscardUnknown() {
-	xxx_messageInfo_Measurement.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Measurement proto.InternalMessageInfo
-
-func (m *Measurement) GetTimeslice() float32 {
-	if m != nil {
-		return m.Timeslice
-	}
-	return 0
-}
-
-func (m *Measurement) GetCpu() float32 {
-	if m != nil {
-		return m.Cpu
-	}
-	return 0
-}
-
-func (m *Measurement) GetMem() float32 {
-	if m != nil {
-		return m.Mem
-	}
-	return 0
-}
-
-type NodeMeasurement struct {
-	Measurements         []Measurement `protobuf:"bytes,1,rep,name=measurements,proto3" json:"measurements"`
-	Nodename             string        `protobuf:"bytes,2,opt,name=Nodename,proto3" json:"Nodename,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
 }
 
 func (m *NodeMeasurement) Reset()      { *m = NodeMeasurement{} }
 func (*NodeMeasurement) ProtoMessage() {}
 func (*NodeMeasurement) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a0b84a42fa06f626, []int{2}
+	return fileDescriptor_a0b84a42fa06f626, []int{1}
 }
 func (m *NodeMeasurement) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -163,11 +104,25 @@ func (m *NodeMeasurement) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_NodeMeasurement proto.InternalMessageInfo
 
-func (m *NodeMeasurement) GetMeasurements() []Measurement {
+func (m *NodeMeasurement) GetTimeslice() float32 {
 	if m != nil {
-		return m.Measurements
+		return m.Timeslice
 	}
-	return nil
+	return 0
+}
+
+func (m *NodeMeasurement) GetCpu() float32 {
+	if m != nil {
+		return m.Cpu
+	}
+	return 0
+}
+
+func (m *NodeMeasurement) GetMem() float32 {
+	if m != nil {
+		return m.Mem
+	}
+	return 0
 }
 
 func (m *NodeMeasurement) GetNodename() string {
@@ -178,17 +133,19 @@ func (m *NodeMeasurement) GetNodename() string {
 }
 
 type ProcessMeasurement struct {
-	Measurements         []Measurement `protobuf:"bytes,1,rep,name=measurements,proto3" json:"measurements"`
-	Nodename             string        `protobuf:"bytes,2,opt,name=Nodename,proto3" json:"Nodename,omitempty"`
-	ProcessName          string        `protobuf:"bytes,3,opt,name=ProcessName,proto3" json:"ProcessName,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
-	XXX_sizecache        int32         `json:"-"`
+	Timeslice            float32  `protobuf:"fixed32,1,opt,name=timeslice,proto3" json:"timeslice,omitempty"`
+	Cpu                  float32  `protobuf:"fixed32,2,opt,name=cpu,proto3" json:"cpu,omitempty"`
+	Mem                  float32  `protobuf:"fixed32,3,opt,name=mem,proto3" json:"mem,omitempty"`
+	Nodename             string   `protobuf:"bytes,4,opt,name=nodename,proto3" json:"nodename,omitempty"`
+	ProcessName          string   `protobuf:"bytes,5,opt,name=process_name,json=processName,proto3" json:"process_name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
 func (m *ProcessMeasurement) Reset()      { *m = ProcessMeasurement{} }
 func (*ProcessMeasurement) ProtoMessage() {}
 func (*ProcessMeasurement) Descriptor() ([]byte, []int) {
-	return fileDescriptor_a0b84a42fa06f626, []int{3}
+	return fileDescriptor_a0b84a42fa06f626, []int{2}
 }
 func (m *ProcessMeasurement) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -217,11 +174,25 @@ func (m *ProcessMeasurement) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ProcessMeasurement proto.InternalMessageInfo
 
-func (m *ProcessMeasurement) GetMeasurements() []Measurement {
+func (m *ProcessMeasurement) GetTimeslice() float32 {
 	if m != nil {
-		return m.Measurements
+		return m.Timeslice
 	}
-	return nil
+	return 0
+}
+
+func (m *ProcessMeasurement) GetCpu() float32 {
+	if m != nil {
+		return m.Cpu
+	}
+	return 0
+}
+
+func (m *ProcessMeasurement) GetMem() float32 {
+	if m != nil {
+		return m.Mem
+	}
+	return 0
 }
 
 func (m *ProcessMeasurement) GetNodename() string {
@@ -238,37 +209,371 @@ func (m *ProcessMeasurement) GetProcessName() string {
 	return ""
 }
 
+type NodeAvgReq struct {
+	Timeslice            float32  `protobuf:"fixed32,1,opt,name=timeslice,proto3" json:"timeslice,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *NodeAvgReq) Reset()      { *m = NodeAvgReq{} }
+func (*NodeAvgReq) ProtoMessage() {}
+func (*NodeAvgReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{3}
+}
+func (m *NodeAvgReq) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *NodeAvgReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_NodeAvgReq.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *NodeAvgReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_NodeAvgReq.Merge(m, src)
+}
+func (m *NodeAvgReq) XXX_Size() int {
+	return m.Size()
+}
+func (m *NodeAvgReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_NodeAvgReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_NodeAvgReq proto.InternalMessageInfo
+
+func (m *NodeAvgReq) GetTimeslice() float32 {
+	if m != nil {
+		return m.Timeslice
+	}
+	return 0
+}
+
+type NodeAvgResp struct {
+	Timeslice            float32  `protobuf:"fixed32,1,opt,name=timeslice,proto3" json:"timeslice,omitempty"`
+	CpuUsed              float32  `protobuf:"fixed32,2,opt,name=cpu_used,json=cpuUsed,proto3" json:"cpu_used,omitempty"`
+	MemUsed              float32  `protobuf:"fixed32,3,opt,name=mem_used,json=memUsed,proto3" json:"mem_used,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *NodeAvgResp) Reset()      { *m = NodeAvgResp{} }
+func (*NodeAvgResp) ProtoMessage() {}
+func (*NodeAvgResp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{4}
+}
+func (m *NodeAvgResp) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *NodeAvgResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_NodeAvgResp.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *NodeAvgResp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_NodeAvgResp.Merge(m, src)
+}
+func (m *NodeAvgResp) XXX_Size() int {
+	return m.Size()
+}
+func (m *NodeAvgResp) XXX_DiscardUnknown() {
+	xxx_messageInfo_NodeAvgResp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_NodeAvgResp proto.InternalMessageInfo
+
+func (m *NodeAvgResp) GetTimeslice() float32 {
+	if m != nil {
+		return m.Timeslice
+	}
+	return 0
+}
+
+func (m *NodeAvgResp) GetCpuUsed() float32 {
+	if m != nil {
+		return m.CpuUsed
+	}
+	return 0
+}
+
+func (m *NodeAvgResp) GetMemUsed() float32 {
+	if m != nil {
+		return m.MemUsed
+	}
+	return 0
+}
+
+type ProcessesAvgReq struct {
+	Timeslice            float32  `protobuf:"fixed32,1,opt,name=timeslice,proto3" json:"timeslice,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ProcessesAvgReq) Reset()      { *m = ProcessesAvgReq{} }
+func (*ProcessesAvgReq) ProtoMessage() {}
+func (*ProcessesAvgReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{5}
+}
+func (m *ProcessesAvgReq) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ProcessesAvgReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ProcessesAvgReq.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *ProcessesAvgReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProcessesAvgReq.Merge(m, src)
+}
+func (m *ProcessesAvgReq) XXX_Size() int {
+	return m.Size()
+}
+func (m *ProcessesAvgReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProcessesAvgReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProcessesAvgReq proto.InternalMessageInfo
+
+func (m *ProcessesAvgReq) GetTimeslice() float32 {
+	if m != nil {
+		return m.Timeslice
+	}
+	return 0
+}
+
+type ProcessesAvgResp struct {
+	Timeslice            float32  `protobuf:"fixed32,1,opt,name=timeslice,proto3" json:"timeslice,omitempty"`
+	Processes            []string `protobuf:"bytes,2,rep,name=processes,proto3" json:"processes,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ProcessesAvgResp) Reset()      { *m = ProcessesAvgResp{} }
+func (*ProcessesAvgResp) ProtoMessage() {}
+func (*ProcessesAvgResp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{6}
+}
+func (m *ProcessesAvgResp) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ProcessesAvgResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ProcessesAvgResp.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *ProcessesAvgResp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProcessesAvgResp.Merge(m, src)
+}
+func (m *ProcessesAvgResp) XXX_Size() int {
+	return m.Size()
+}
+func (m *ProcessesAvgResp) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProcessesAvgResp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProcessesAvgResp proto.InternalMessageInfo
+
+func (m *ProcessesAvgResp) GetTimeslice() float32 {
+	if m != nil {
+		return m.Timeslice
+	}
+	return 0
+}
+
+func (m *ProcessesAvgResp) GetProcesses() []string {
+	if m != nil {
+		return m.Processes
+	}
+	return nil
+}
+
+type ProcessAvgReq struct {
+	Timeslice            float32  `protobuf:"fixed32,1,opt,name=timeslice,proto3" json:"timeslice,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ProcessAvgReq) Reset()      { *m = ProcessAvgReq{} }
+func (*ProcessAvgReq) ProtoMessage() {}
+func (*ProcessAvgReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{7}
+}
+func (m *ProcessAvgReq) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ProcessAvgReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ProcessAvgReq.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *ProcessAvgReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProcessAvgReq.Merge(m, src)
+}
+func (m *ProcessAvgReq) XXX_Size() int {
+	return m.Size()
+}
+func (m *ProcessAvgReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProcessAvgReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProcessAvgReq proto.InternalMessageInfo
+
+func (m *ProcessAvgReq) GetTimeslice() float32 {
+	if m != nil {
+		return m.Timeslice
+	}
+	return 0
+}
+
+type ProcessAvgResp struct {
+	Timeslice            float32  `protobuf:"fixed32,1,opt,name=timeslice,proto3" json:"timeslice,omitempty"`
+	CpuUsed              float32  `protobuf:"fixed32,2,opt,name=cpu_used,json=cpuUsed,proto3" json:"cpu_used,omitempty"`
+	MemUsed              float32  `protobuf:"fixed32,3,opt,name=mem_used,json=memUsed,proto3" json:"mem_used,omitempty"`
+	NumInstances         uint32   `protobuf:"varint,4,opt,name=num_instances,json=numInstances,proto3" json:"num_instances,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ProcessAvgResp) Reset()      { *m = ProcessAvgResp{} }
+func (*ProcessAvgResp) ProtoMessage() {}
+func (*ProcessAvgResp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a0b84a42fa06f626, []int{8}
+}
+func (m *ProcessAvgResp) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ProcessAvgResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ProcessAvgResp.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalTo(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *ProcessAvgResp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProcessAvgResp.Merge(m, src)
+}
+func (m *ProcessAvgResp) XXX_Size() int {
+	return m.Size()
+}
+func (m *ProcessAvgResp) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProcessAvgResp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProcessAvgResp proto.InternalMessageInfo
+
+func (m *ProcessAvgResp) GetTimeslice() float32 {
+	if m != nil {
+		return m.Timeslice
+	}
+	return 0
+}
+
+func (m *ProcessAvgResp) GetCpuUsed() float32 {
+	if m != nil {
+		return m.CpuUsed
+	}
+	return 0
+}
+
+func (m *ProcessAvgResp) GetMemUsed() float32 {
+	if m != nil {
+		return m.MemUsed
+	}
+	return 0
+}
+
+func (m *ProcessAvgResp) GetNumInstances() uint32 {
+	if m != nil {
+		return m.NumInstances
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*Empty)(nil), "metricsd.Empty")
-	proto.RegisterType((*Measurement)(nil), "metricsd.Measurement")
 	proto.RegisterType((*NodeMeasurement)(nil), "metricsd.NodeMeasurement")
 	proto.RegisterType((*ProcessMeasurement)(nil), "metricsd.ProcessMeasurement")
+	proto.RegisterType((*NodeAvgReq)(nil), "metricsd.NodeAvgReq")
+	proto.RegisterType((*NodeAvgResp)(nil), "metricsd.NodeAvgResp")
+	proto.RegisterType((*ProcessesAvgReq)(nil), "metricsd.ProcessesAvgReq")
+	proto.RegisterType((*ProcessesAvgResp)(nil), "metricsd.ProcessesAvgResp")
+	proto.RegisterType((*ProcessAvgReq)(nil), "metricsd.ProcessAvgReq")
+	proto.RegisterType((*ProcessAvgResp)(nil), "metricsd.ProcessAvgResp")
 }
 
 func init() { proto.RegisterFile("service.proto", fileDescriptor_a0b84a42fa06f626) }
 
 var fileDescriptor_a0b84a42fa06f626 = []byte{
-	// 314 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2d, 0x4e, 0x2d, 0x2a,
-	0xcb, 0x4c, 0x4e, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0xc8, 0x4d, 0x2d, 0x29, 0xca,
-	0x4c, 0x2e, 0x4e, 0x51, 0x62, 0xe7, 0x62, 0x75, 0xcd, 0x2d, 0x28, 0xa9, 0x54, 0xf2, 0xe7, 0xe2,
-	0xf6, 0x4d, 0x4d, 0x2c, 0x2e, 0x2d, 0x4a, 0xcd, 0x4d, 0xcd, 0x2b, 0x11, 0x92, 0xe1, 0xe2, 0x2c,
-	0xc9, 0xcc, 0x4d, 0x2d, 0xce, 0xc9, 0x4c, 0x4e, 0x95, 0x60, 0x54, 0x60, 0xd4, 0x60, 0x0a, 0x42,
-	0x08, 0x08, 0x09, 0x70, 0x31, 0x27, 0x17, 0x94, 0x4a, 0x30, 0x81, 0xc5, 0x41, 0x4c, 0x90, 0x48,
-	0x6e, 0x6a, 0xae, 0x04, 0x33, 0x44, 0x24, 0x37, 0x35, 0x57, 0x29, 0x8f, 0x8b, 0xdf, 0x2f, 0x3f,
-	0x25, 0x15, 0xd9, 0x50, 0x7b, 0x2e, 0x9e, 0x5c, 0x04, 0xb7, 0x58, 0x82, 0x51, 0x81, 0x59, 0x83,
-	0xdb, 0x48, 0x54, 0x0f, 0xe6, 0x1a, 0x3d, 0x24, 0xc5, 0x4e, 0x2c, 0x27, 0xee, 0xc9, 0x33, 0x04,
-	0xa1, 0x68, 0x10, 0x92, 0xe2, 0xe2, 0x00, 0x99, 0x99, 0x97, 0x98, 0x9b, 0x0a, 0xb6, 0x9c, 0x33,
-	0x08, 0xce, 0x57, 0x9a, 0xcc, 0xc8, 0x25, 0x14, 0x50, 0x94, 0x9f, 0x9c, 0x5a, 0x5c, 0x4c, 0x2f,
-	0x3b, 0x85, 0x14, 0xb8, 0xb8, 0xa1, 0x56, 0xfa, 0x81, 0xa4, 0x99, 0xc1, 0xd2, 0xc8, 0x42, 0x46,
-	0x0b, 0x18, 0xb9, 0xf8, 0x7c, 0x21, 0x56, 0x05, 0x43, 0xa2, 0x40, 0xc8, 0x93, 0x4b, 0x22, 0x28,
-	0xb5, 0x20, 0xbf, 0xa8, 0x04, 0x8b, 0x6b, 0x65, 0x10, 0xee, 0xc2, 0x94, 0x95, 0xe2, 0x47, 0xc8,
-	0x82, 0x23, 0x4d, 0xc8, 0x99, 0x4b, 0x14, 0x62, 0x14, 0x7a, 0x48, 0x4b, 0x22, 0x54, 0xa2, 0x49,
-	0x61, 0x18, 0xe2, 0x64, 0x76, 0xe1, 0xa1, 0x1c, 0xc3, 0x8d, 0x87, 0x72, 0x0c, 0x1f, 0x1e, 0xca,
-	0x31, 0x36, 0x3c, 0x92, 0x63, 0x5c, 0xf1, 0x48, 0x8e, 0xf1, 0xc4, 0x23, 0x39, 0xc6, 0x0b, 0x8f,
-	0xe4, 0x18, 0x1f, 0x3c, 0x92, 0x63, 0x7c, 0xf1, 0x48, 0x8e, 0xe1, 0xc3, 0x23, 0x39, 0xc6, 0x09,
-	0x8f, 0xe5, 0x18, 0xa2, 0xe0, 0x49, 0x27, 0x89, 0x0d, 0x9c, 0x96, 0x8c, 0x01, 0x01, 0x00, 0x00,
-	0xff, 0xff, 0x5c, 0x31, 0x92, 0x36, 0x5c, 0x02, 0x00, 0x00,
+	// 482 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x54, 0xbf, 0x6f, 0xd3, 0x40,
+	0x14, 0xf6, 0x25, 0x2d, 0x49, 0x5e, 0x93, 0xa6, 0x9c, 0xa8, 0x70, 0x2c, 0x74, 0x04, 0xb3, 0x44,
+	0x48, 0x04, 0x09, 0x24, 0x16, 0x26, 0x5a, 0x31, 0x14, 0xa9, 0x15, 0x32, 0xb0, 0xb0, 0x44, 0xe6,
+	0xfc, 0x54, 0x59, 0xe2, 0xec, 0xc3, 0xcf, 0xae, 0xc4, 0xc6, 0xca, 0xc6, 0xc2, 0xff, 0xc0, 0x9f,
+	0xd2, 0xb1, 0x23, 0x13, 0x22, 0x66, 0x61, 0x42, 0xfd, 0x13, 0x90, 0x7d, 0xce, 0x8f, 0xd6, 0x81,
+	0x76, 0xa1, 0x9b, 0xfd, 0x7d, 0xef, 0xbe, 0xfb, 0xde, 0xaf, 0x83, 0x1e, 0x61, 0x72, 0x14, 0x4a,
+	0x1c, 0xeb, 0x24, 0x4e, 0x63, 0xde, 0x56, 0x98, 0x26, 0xa1, 0xa4, 0xc0, 0x6d, 0xc1, 0xfa, 0x33,
+	0xa5, 0xd3, 0x0f, 0x6e, 0x0c, 0xfd, 0x83, 0x38, 0xc0, 0x7d, 0xf4, 0x29, 0x4b, 0x50, 0x61, 0x94,
+	0xf2, 0x5b, 0xd0, 0x49, 0x43, 0x85, 0xf4, 0x2e, 0x94, 0x68, 0xb3, 0x21, 0x1b, 0x35, 0xbc, 0x05,
+	0xc0, 0xb7, 0xa0, 0x29, 0x75, 0x66, 0x37, 0x4a, 0xbc, 0xf8, 0x2c, 0x10, 0x85, 0xca, 0x6e, 0x1a,
+	0x44, 0xa1, 0xe2, 0x0e, 0xb4, 0xa3, 0x38, 0xc0, 0xc8, 0x57, 0x68, 0xaf, 0x0d, 0xd9, 0xa8, 0xe3,
+	0xcd, 0xff, 0xdd, 0x2f, 0x0c, 0xf8, 0x8b, 0x24, 0x96, 0x48, 0x74, 0x65, 0x97, 0xf2, 0x3b, 0xd0,
+	0xd5, 0xe6, 0xce, 0x49, 0xc9, 0xaf, 0x97, 0xfc, 0x46, 0x85, 0x1d, 0x14, 0xbe, 0xee, 0x01, 0x14,
+	0x85, 0x78, 0x7a, 0x74, 0xe8, 0xe1, 0xfb, 0x7f, 0xdb, 0x71, 0x7d, 0xd8, 0x98, 0xc7, 0x92, 0xbe,
+	0xc0, 0xfb, 0x00, 0xda, 0x52, 0x67, 0x93, 0x8c, 0x30, 0xa8, 0x12, 0x68, 0x49, 0x9d, 0xbd, 0x26,
+	0x0c, 0x0a, 0x4a, 0xa1, 0x32, 0x94, 0xc9, 0xa4, 0xa5, 0x50, 0x15, 0x94, 0xfb, 0x00, 0xfa, 0x55,
+	0x95, 0x90, 0x2e, 0xe5, 0xe9, 0x15, 0x6c, 0x9d, 0x3d, 0x70, 0xa1, 0x31, 0x17, 0x3a, 0x7a, 0x76,
+	0xc2, 0x6e, 0x0c, 0x9b, 0xa3, 0xce, 0xce, 0xda, 0xf1, 0xf7, 0xdb, 0x96, 0xb7, 0x80, 0xdd, 0xfb,
+	0xd0, 0xab, 0x54, 0x2f, 0x65, 0xe2, 0x13, 0x83, 0xcd, 0xe5, 0xf8, 0xff, 0x53, 0x1c, 0x7e, 0x17,
+	0x7a, 0x51, 0xa6, 0x26, 0x61, 0x44, 0xa9, 0x1f, 0x49, 0xa4, 0xb2, 0xdf, 0x3d, 0xaf, 0x1b, 0x65,
+	0x6a, 0x6f, 0x86, 0x3d, 0xfc, 0xdd, 0x80, 0xcd, 0x7d, 0x33, 0xef, 0x2f, 0xcd, 0x16, 0xf0, 0x3d,
+	0xb0, 0x3d, 0xd4, 0x71, 0x92, 0xae, 0x1a, 0xc0, 0xf1, 0x6c, 0x39, 0xc6, 0x75, 0xd6, 0xe9, 0x2f,
+	0xd8, 0x72, 0x6f, 0xf8, 0x2e, 0x6c, 0x1b, 0xa9, 0xf3, 0xdb, 0x33, 0x58, 0x44, 0x9e, 0xa3, 0xea,
+	0x22, 0x4f, 0xa0, 0x6b, 0xe6, 0x08, 0x13, 0xff, 0x10, 0x89, 0xdf, 0x38, 0x7b, 0xd6, 0x94, 0xdc,
+	0xd9, 0x5e, 0x81, 0x92, 0xe6, 0xcf, 0xe1, 0xfa, 0x52, 0xc3, 0x2b, 0x85, 0x41, 0x2d, 0x8b, 0xd9,
+	0xf8, 0x38, 0xce, 0xdf, 0x28, 0xd2, 0x7c, 0x77, 0xa9, 0x6d, 0xa5, 0x12, 0xbf, 0x59, 0x8b, 0xae,
+	0x64, 0xec, 0xd5, 0x04, 0xe9, 0x9d, 0xc7, 0x27, 0x53, 0x61, 0x7d, 0x9b, 0x0a, 0xeb, 0x74, 0x2a,
+	0xd8, 0xc7, 0x5c, 0xb0, 0xaf, 0xb9, 0x60, 0xc7, 0xb9, 0x60, 0x27, 0xb9, 0x60, 0x3f, 0x72, 0xc1,
+	0x7e, 0xe5, 0xc2, 0x3a, 0xcd, 0x05, 0xfb, 0xfc, 0x53, 0x58, 0x6f, 0xe6, 0x6f, 0xd1, 0xdb, 0x6b,
+	0xe5, 0xe3, 0xf4, 0xe8, 0x4f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x1c, 0x57, 0x9e, 0x0d, 0xad, 0x04,
+	0x00, 0x00,
 }
 
 func (this *Empty) Equal(that interface{}) bool {
@@ -292,36 +597,6 @@ func (this *Empty) Equal(that interface{}) bool {
 	}
 	return true
 }
-func (this *Measurement) Equal(that interface{}) bool {
-	if that == nil {
-		return this == nil
-	}
-
-	that1, ok := that.(*Measurement)
-	if !ok {
-		that2, ok := that.(Measurement)
-		if ok {
-			that1 = &that2
-		} else {
-			return false
-		}
-	}
-	if that1 == nil {
-		return this == nil
-	} else if this == nil {
-		return false
-	}
-	if this.Timeslice != that1.Timeslice {
-		return false
-	}
-	if this.Cpu != that1.Cpu {
-		return false
-	}
-	if this.Mem != that1.Mem {
-		return false
-	}
-	return true
-}
 func (this *NodeMeasurement) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
@@ -341,13 +616,14 @@ func (this *NodeMeasurement) Equal(that interface{}) bool {
 	} else if this == nil {
 		return false
 	}
-	if len(this.Measurements) != len(that1.Measurements) {
+	if this.Timeslice != that1.Timeslice {
 		return false
 	}
-	for i := range this.Measurements {
-		if !this.Measurements[i].Equal(&that1.Measurements[i]) {
-			return false
-		}
+	if this.Cpu != that1.Cpu {
+		return false
+	}
+	if this.Mem != that1.Mem {
+		return false
 	}
 	if this.Nodename != that1.Nodename {
 		return false
@@ -373,18 +649,186 @@ func (this *ProcessMeasurement) Equal(that interface{}) bool {
 	} else if this == nil {
 		return false
 	}
-	if len(this.Measurements) != len(that1.Measurements) {
+	if this.Timeslice != that1.Timeslice {
 		return false
 	}
-	for i := range this.Measurements {
-		if !this.Measurements[i].Equal(&that1.Measurements[i]) {
-			return false
-		}
+	if this.Cpu != that1.Cpu {
+		return false
+	}
+	if this.Mem != that1.Mem {
+		return false
 	}
 	if this.Nodename != that1.Nodename {
 		return false
 	}
 	if this.ProcessName != that1.ProcessName {
+		return false
+	}
+	return true
+}
+func (this *NodeAvgReq) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*NodeAvgReq)
+	if !ok {
+		that2, ok := that.(NodeAvgReq)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Timeslice != that1.Timeslice {
+		return false
+	}
+	return true
+}
+func (this *NodeAvgResp) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*NodeAvgResp)
+	if !ok {
+		that2, ok := that.(NodeAvgResp)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Timeslice != that1.Timeslice {
+		return false
+	}
+	if this.CpuUsed != that1.CpuUsed {
+		return false
+	}
+	if this.MemUsed != that1.MemUsed {
+		return false
+	}
+	return true
+}
+func (this *ProcessesAvgReq) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*ProcessesAvgReq)
+	if !ok {
+		that2, ok := that.(ProcessesAvgReq)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Timeslice != that1.Timeslice {
+		return false
+	}
+	return true
+}
+func (this *ProcessesAvgResp) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*ProcessesAvgResp)
+	if !ok {
+		that2, ok := that.(ProcessesAvgResp)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Timeslice != that1.Timeslice {
+		return false
+	}
+	if len(this.Processes) != len(that1.Processes) {
+		return false
+	}
+	for i := range this.Processes {
+		if this.Processes[i] != that1.Processes[i] {
+			return false
+		}
+	}
+	return true
+}
+func (this *ProcessAvgReq) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*ProcessAvgReq)
+	if !ok {
+		that2, ok := that.(ProcessAvgReq)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Timeslice != that1.Timeslice {
+		return false
+	}
+	return true
+}
+func (this *ProcessAvgResp) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*ProcessAvgResp)
+	if !ok {
+		that2, ok := that.(ProcessAvgResp)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Timeslice != that1.Timeslice {
+		return false
+	}
+	if this.CpuUsed != that1.CpuUsed {
+		return false
+	}
+	if this.MemUsed != that1.MemUsed {
+		return false
+	}
+	if this.NumInstances != that1.NumInstances {
 		return false
 	}
 	return true
@@ -398,31 +842,15 @@ func (this *Empty) GoString() string {
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
-func (this *Measurement) GoString() string {
-	if this == nil {
-		return "nil"
-	}
-	s := make([]string, 0, 7)
-	s = append(s, "&metricsd.Measurement{")
-	s = append(s, "Timeslice: "+fmt.Sprintf("%#v", this.Timeslice)+",\n")
-	s = append(s, "Cpu: "+fmt.Sprintf("%#v", this.Cpu)+",\n")
-	s = append(s, "Mem: "+fmt.Sprintf("%#v", this.Mem)+",\n")
-	s = append(s, "}")
-	return strings.Join(s, "")
-}
 func (this *NodeMeasurement) GoString() string {
 	if this == nil {
 		return "nil"
 	}
-	s := make([]string, 0, 6)
+	s := make([]string, 0, 8)
 	s = append(s, "&metricsd.NodeMeasurement{")
-	if this.Measurements != nil {
-		vs := make([]*Measurement, len(this.Measurements))
-		for i := range vs {
-			vs[i] = &this.Measurements[i]
-		}
-		s = append(s, "Measurements: "+fmt.Sprintf("%#v", vs)+",\n")
-	}
+	s = append(s, "Timeslice: "+fmt.Sprintf("%#v", this.Timeslice)+",\n")
+	s = append(s, "Cpu: "+fmt.Sprintf("%#v", this.Cpu)+",\n")
+	s = append(s, "Mem: "+fmt.Sprintf("%#v", this.Mem)+",\n")
 	s = append(s, "Nodename: "+fmt.Sprintf("%#v", this.Nodename)+",\n")
 	s = append(s, "}")
 	return strings.Join(s, "")
@@ -431,17 +859,79 @@ func (this *ProcessMeasurement) GoString() string {
 	if this == nil {
 		return "nil"
 	}
-	s := make([]string, 0, 7)
+	s := make([]string, 0, 9)
 	s = append(s, "&metricsd.ProcessMeasurement{")
-	if this.Measurements != nil {
-		vs := make([]*Measurement, len(this.Measurements))
-		for i := range vs {
-			vs[i] = &this.Measurements[i]
-		}
-		s = append(s, "Measurements: "+fmt.Sprintf("%#v", vs)+",\n")
-	}
+	s = append(s, "Timeslice: "+fmt.Sprintf("%#v", this.Timeslice)+",\n")
+	s = append(s, "Cpu: "+fmt.Sprintf("%#v", this.Cpu)+",\n")
+	s = append(s, "Mem: "+fmt.Sprintf("%#v", this.Mem)+",\n")
 	s = append(s, "Nodename: "+fmt.Sprintf("%#v", this.Nodename)+",\n")
 	s = append(s, "ProcessName: "+fmt.Sprintf("%#v", this.ProcessName)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *NodeAvgReq) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&metricsd.NodeAvgReq{")
+	s = append(s, "Timeslice: "+fmt.Sprintf("%#v", this.Timeslice)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *NodeAvgResp) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 7)
+	s = append(s, "&metricsd.NodeAvgResp{")
+	s = append(s, "Timeslice: "+fmt.Sprintf("%#v", this.Timeslice)+",\n")
+	s = append(s, "CpuUsed: "+fmt.Sprintf("%#v", this.CpuUsed)+",\n")
+	s = append(s, "MemUsed: "+fmt.Sprintf("%#v", this.MemUsed)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *ProcessesAvgReq) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&metricsd.ProcessesAvgReq{")
+	s = append(s, "Timeslice: "+fmt.Sprintf("%#v", this.Timeslice)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *ProcessesAvgResp) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 6)
+	s = append(s, "&metricsd.ProcessesAvgResp{")
+	s = append(s, "Timeslice: "+fmt.Sprintf("%#v", this.Timeslice)+",\n")
+	s = append(s, "Processes: "+fmt.Sprintf("%#v", this.Processes)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *ProcessAvgReq) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&metricsd.ProcessAvgReq{")
+	s = append(s, "Timeslice: "+fmt.Sprintf("%#v", this.Timeslice)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *ProcessAvgResp) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 8)
+	s = append(s, "&metricsd.ProcessAvgResp{")
+	s = append(s, "Timeslice: "+fmt.Sprintf("%#v", this.Timeslice)+",\n")
+	s = append(s, "CpuUsed: "+fmt.Sprintf("%#v", this.CpuUsed)+",\n")
+	s = append(s, "MemUsed: "+fmt.Sprintf("%#v", this.MemUsed)+",\n")
+	s = append(s, "NumInstances: "+fmt.Sprintf("%#v", this.NumInstances)+",\n")
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
@@ -468,6 +958,9 @@ const _ = grpc.SupportPackageIsVersion4
 type MetricsServiceClient interface {
 	ReportProcessMeasurement(ctx context.Context, in *ProcessMeasurement, opts ...grpc.CallOption) (*Empty, error)
 	ReportNodeMeasurement(ctx context.Context, in *NodeMeasurement, opts ...grpc.CallOption) (*Empty, error)
+	NodeAverages(ctx context.Context, in *NodeAvgReq, opts ...grpc.CallOption) (*NodeAvgResp, error)
+	ProcessesAverages(ctx context.Context, in *ProcessesAvgReq, opts ...grpc.CallOption) (*ProcessesAvgResp, error)
+	ProcessAverage(ctx context.Context, in *ProcessAvgReq, opts ...grpc.CallOption) (*ProcessAvgResp, error)
 }
 
 type metricsServiceClient struct {
@@ -496,10 +989,40 @@ func (c *metricsServiceClient) ReportNodeMeasurement(ctx context.Context, in *No
 	return out, nil
 }
 
+func (c *metricsServiceClient) NodeAverages(ctx context.Context, in *NodeAvgReq, opts ...grpc.CallOption) (*NodeAvgResp, error) {
+	out := new(NodeAvgResp)
+	err := c.cc.Invoke(ctx, "/metricsd.MetricsService/NodeAverages", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *metricsServiceClient) ProcessesAverages(ctx context.Context, in *ProcessesAvgReq, opts ...grpc.CallOption) (*ProcessesAvgResp, error) {
+	out := new(ProcessesAvgResp)
+	err := c.cc.Invoke(ctx, "/metricsd.MetricsService/ProcessesAverages", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *metricsServiceClient) ProcessAverage(ctx context.Context, in *ProcessAvgReq, opts ...grpc.CallOption) (*ProcessAvgResp, error) {
+	out := new(ProcessAvgResp)
+	err := c.cc.Invoke(ctx, "/metricsd.MetricsService/ProcessAverage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MetricsServiceServer is the server API for MetricsService service.
 type MetricsServiceServer interface {
 	ReportProcessMeasurement(context.Context, *ProcessMeasurement) (*Empty, error)
 	ReportNodeMeasurement(context.Context, *NodeMeasurement) (*Empty, error)
+	NodeAverages(context.Context, *NodeAvgReq) (*NodeAvgResp, error)
+	ProcessesAverages(context.Context, *ProcessesAvgReq) (*ProcessesAvgResp, error)
+	ProcessAverage(context.Context, *ProcessAvgReq) (*ProcessAvgResp, error)
 }
 
 func RegisterMetricsServiceServer(s *grpc.Server, srv MetricsServiceServer) {
@@ -542,6 +1065,60 @@ func _MetricsService_ReportNodeMeasurement_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MetricsService_NodeAverages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NodeAvgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetricsServiceServer).NodeAverages(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/metricsd.MetricsService/NodeAverages",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetricsServiceServer).NodeAverages(ctx, req.(*NodeAvgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MetricsService_ProcessesAverages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProcessesAvgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetricsServiceServer).ProcessesAverages(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/metricsd.MetricsService/ProcessesAverages",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetricsServiceServer).ProcessesAverages(ctx, req.(*ProcessesAvgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _MetricsService_ProcessAverage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProcessAvgReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MetricsServiceServer).ProcessAverage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/metricsd.MetricsService/ProcessAverage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MetricsServiceServer).ProcessAverage(ctx, req.(*ProcessAvgReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _MetricsService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "metricsd.MetricsService",
 	HandlerType: (*MetricsServiceServer)(nil),
@@ -553,6 +1130,18 @@ var _MetricsService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ReportNodeMeasurement",
 			Handler:    _MetricsService_ReportNodeMeasurement_Handler,
+		},
+		{
+			MethodName: "NodeAverages",
+			Handler:    _MetricsService_NodeAverages_Handler,
+		},
+		{
+			MethodName: "ProcessesAverages",
+			Handler:    _MetricsService_ProcessesAverages_Handler,
+		},
+		{
+			MethodName: "ProcessAverage",
+			Handler:    _MetricsService_ProcessAverage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -577,7 +1166,7 @@ func (m *Empty) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-func (m *Measurement) Marshal() (dAtA []byte, err error) {
+func (m *NodeMeasurement) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -587,7 +1176,7 @@ func (m *Measurement) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *Measurement) MarshalTo(dAtA []byte) (int, error) {
+func (m *NodeMeasurement) MarshalTo(dAtA []byte) (int, error) {
 	var i int
 	_ = i
 	var l int
@@ -610,38 +1199,8 @@ func (m *Measurement) MarshalTo(dAtA []byte) (int, error) {
 		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Mem))))
 		i += 4
 	}
-	return i, nil
-}
-
-func (m *NodeMeasurement) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *NodeMeasurement) MarshalTo(dAtA []byte) (int, error) {
-	var i int
-	_ = i
-	var l int
-	_ = l
-	if len(m.Measurements) > 0 {
-		for _, msg := range m.Measurements {
-			dAtA[i] = 0xa
-			i++
-			i = encodeVarintService(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
-			if err != nil {
-				return 0, err
-			}
-			i += n
-		}
-	}
 	if len(m.Nodename) > 0 {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x22
 		i++
 		i = encodeVarintService(dAtA, i, uint64(len(m.Nodename)))
 		i += copy(dAtA[i:], m.Nodename)
@@ -664,29 +1223,223 @@ func (m *ProcessMeasurement) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Measurements) > 0 {
-		for _, msg := range m.Measurements {
-			dAtA[i] = 0xa
-			i++
-			i = encodeVarintService(dAtA, i, uint64(msg.Size()))
-			n, err := msg.MarshalTo(dAtA[i:])
-			if err != nil {
-				return 0, err
-			}
-			i += n
-		}
+	if m.Timeslice != 0 {
+		dAtA[i] = 0xd
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Timeslice))))
+		i += 4
+	}
+	if m.Cpu != 0 {
+		dAtA[i] = 0x15
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Cpu))))
+		i += 4
+	}
+	if m.Mem != 0 {
+		dAtA[i] = 0x1d
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Mem))))
+		i += 4
 	}
 	if len(m.Nodename) > 0 {
-		dAtA[i] = 0x12
+		dAtA[i] = 0x22
 		i++
 		i = encodeVarintService(dAtA, i, uint64(len(m.Nodename)))
 		i += copy(dAtA[i:], m.Nodename)
 	}
 	if len(m.ProcessName) > 0 {
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintService(dAtA, i, uint64(len(m.ProcessName)))
 		i += copy(dAtA[i:], m.ProcessName)
+	}
+	return i, nil
+}
+
+func (m *NodeAvgReq) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *NodeAvgReq) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		dAtA[i] = 0xd
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Timeslice))))
+		i += 4
+	}
+	return i, nil
+}
+
+func (m *NodeAvgResp) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *NodeAvgResp) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		dAtA[i] = 0xd
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Timeslice))))
+		i += 4
+	}
+	if m.CpuUsed != 0 {
+		dAtA[i] = 0x15
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.CpuUsed))))
+		i += 4
+	}
+	if m.MemUsed != 0 {
+		dAtA[i] = 0x1d
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.MemUsed))))
+		i += 4
+	}
+	return i, nil
+}
+
+func (m *ProcessesAvgReq) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ProcessesAvgReq) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		dAtA[i] = 0xd
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Timeslice))))
+		i += 4
+	}
+	return i, nil
+}
+
+func (m *ProcessesAvgResp) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ProcessesAvgResp) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		dAtA[i] = 0xd
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Timeslice))))
+		i += 4
+	}
+	if len(m.Processes) > 0 {
+		for _, s := range m.Processes {
+			dAtA[i] = 0x12
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				dAtA[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			dAtA[i] = uint8(l)
+			i++
+			i += copy(dAtA[i:], s)
+		}
+	}
+	return i, nil
+}
+
+func (m *ProcessAvgReq) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ProcessAvgReq) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		dAtA[i] = 0xd
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Timeslice))))
+		i += 4
+	}
+	return i, nil
+}
+
+func (m *ProcessAvgResp) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ProcessAvgResp) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		dAtA[i] = 0xd
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.Timeslice))))
+		i += 4
+	}
+	if m.CpuUsed != 0 {
+		dAtA[i] = 0x15
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.CpuUsed))))
+		i += 4
+	}
+	if m.MemUsed != 0 {
+		dAtA[i] = 0x1d
+		i++
+		encoding_binary.LittleEndian.PutUint32(dAtA[i:], uint32(math.Float32bits(float32(m.MemUsed))))
+		i += 4
+	}
+	if m.NumInstances != 0 {
+		dAtA[i] = 0x20
+		i++
+		i = encodeVarintService(dAtA, i, uint64(m.NumInstances))
 	}
 	return i, nil
 }
@@ -709,7 +1462,7 @@ func (m *Empty) Size() (n int) {
 	return n
 }
 
-func (m *Measurement) Size() (n int) {
+func (m *NodeMeasurement) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -724,21 +1477,6 @@ func (m *Measurement) Size() (n int) {
 	if m.Mem != 0 {
 		n += 5
 	}
-	return n
-}
-
-func (m *NodeMeasurement) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	if len(m.Measurements) > 0 {
-		for _, e := range m.Measurements {
-			l = e.Size()
-			n += 1 + l + sovService(uint64(l))
-		}
-	}
 	l = len(m.Nodename)
 	if l > 0 {
 		n += 1 + l + sovService(uint64(l))
@@ -752,11 +1490,14 @@ func (m *ProcessMeasurement) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if len(m.Measurements) > 0 {
-		for _, e := range m.Measurements {
-			l = e.Size()
-			n += 1 + l + sovService(uint64(l))
-		}
+	if m.Timeslice != 0 {
+		n += 5
+	}
+	if m.Cpu != 0 {
+		n += 5
+	}
+	if m.Mem != 0 {
+		n += 5
 	}
 	l = len(m.Nodename)
 	if l > 0 {
@@ -765,6 +1506,99 @@ func (m *ProcessMeasurement) Size() (n int) {
 	l = len(m.ProcessName)
 	if l > 0 {
 		n += 1 + l + sovService(uint64(l))
+	}
+	return n
+}
+
+func (m *NodeAvgReq) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		n += 5
+	}
+	return n
+}
+
+func (m *NodeAvgResp) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		n += 5
+	}
+	if m.CpuUsed != 0 {
+		n += 5
+	}
+	if m.MemUsed != 0 {
+		n += 5
+	}
+	return n
+}
+
+func (m *ProcessesAvgReq) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		n += 5
+	}
+	return n
+}
+
+func (m *ProcessesAvgResp) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		n += 5
+	}
+	if len(m.Processes) > 0 {
+		for _, s := range m.Processes {
+			l = len(s)
+			n += 1 + l + sovService(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *ProcessAvgReq) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		n += 5
+	}
+	return n
+}
+
+func (m *ProcessAvgResp) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Timeslice != 0 {
+		n += 5
+	}
+	if m.CpuUsed != 0 {
+		n += 5
+	}
+	if m.MemUsed != 0 {
+		n += 5
+	}
+	if m.NumInstances != 0 {
+		n += 1 + sovService(uint64(m.NumInstances))
 	}
 	return n
 }
@@ -791,24 +1625,14 @@ func (this *Empty) String() string {
 	}, "")
 	return s
 }
-func (this *Measurement) String() string {
-	if this == nil {
-		return "nil"
-	}
-	s := strings.Join([]string{`&Measurement{`,
-		`Timeslice:` + fmt.Sprintf("%v", this.Timeslice) + `,`,
-		`Cpu:` + fmt.Sprintf("%v", this.Cpu) + `,`,
-		`Mem:` + fmt.Sprintf("%v", this.Mem) + `,`,
-		`}`,
-	}, "")
-	return s
-}
 func (this *NodeMeasurement) String() string {
 	if this == nil {
 		return "nil"
 	}
 	s := strings.Join([]string{`&NodeMeasurement{`,
-		`Measurements:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.Measurements), "Measurement", "Measurement", 1), `&`, ``, 1) + `,`,
+		`Timeslice:` + fmt.Sprintf("%v", this.Timeslice) + `,`,
+		`Cpu:` + fmt.Sprintf("%v", this.Cpu) + `,`,
+		`Mem:` + fmt.Sprintf("%v", this.Mem) + `,`,
 		`Nodename:` + fmt.Sprintf("%v", this.Nodename) + `,`,
 		`}`,
 	}, "")
@@ -819,9 +1643,77 @@ func (this *ProcessMeasurement) String() string {
 		return "nil"
 	}
 	s := strings.Join([]string{`&ProcessMeasurement{`,
-		`Measurements:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.Measurements), "Measurement", "Measurement", 1), `&`, ``, 1) + `,`,
+		`Timeslice:` + fmt.Sprintf("%v", this.Timeslice) + `,`,
+		`Cpu:` + fmt.Sprintf("%v", this.Cpu) + `,`,
+		`Mem:` + fmt.Sprintf("%v", this.Mem) + `,`,
 		`Nodename:` + fmt.Sprintf("%v", this.Nodename) + `,`,
 		`ProcessName:` + fmt.Sprintf("%v", this.ProcessName) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *NodeAvgReq) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&NodeAvgReq{`,
+		`Timeslice:` + fmt.Sprintf("%v", this.Timeslice) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *NodeAvgResp) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&NodeAvgResp{`,
+		`Timeslice:` + fmt.Sprintf("%v", this.Timeslice) + `,`,
+		`CpuUsed:` + fmt.Sprintf("%v", this.CpuUsed) + `,`,
+		`MemUsed:` + fmt.Sprintf("%v", this.MemUsed) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *ProcessesAvgReq) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&ProcessesAvgReq{`,
+		`Timeslice:` + fmt.Sprintf("%v", this.Timeslice) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *ProcessesAvgResp) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&ProcessesAvgResp{`,
+		`Timeslice:` + fmt.Sprintf("%v", this.Timeslice) + `,`,
+		`Processes:` + fmt.Sprintf("%v", this.Processes) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *ProcessAvgReq) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&ProcessAvgReq{`,
+		`Timeslice:` + fmt.Sprintf("%v", this.Timeslice) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *ProcessAvgResp) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&ProcessAvgResp{`,
+		`Timeslice:` + fmt.Sprintf("%v", this.Timeslice) + `,`,
+		`CpuUsed:` + fmt.Sprintf("%v", this.CpuUsed) + `,`,
+		`MemUsed:` + fmt.Sprintf("%v", this.MemUsed) + `,`,
+		`NumInstances:` + fmt.Sprintf("%v", this.NumInstances) + `,`,
 		`}`,
 	}, "")
 	return s
@@ -887,7 +1779,7 @@ func (m *Empty) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *Measurement) Unmarshal(dAtA []byte) error {
+func (m *NodeMeasurement) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -910,10 +1802,10 @@ func (m *Measurement) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: Measurement: wiretype end group for non-group")
+			return fmt.Errorf("proto: NodeMeasurement: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: Measurement: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: NodeMeasurement: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -949,94 +1841,7 @@ func (m *Measurement) Unmarshal(dAtA []byte) error {
 			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
 			iNdEx += 4
 			m.Mem = float32(math.Float32frombits(v))
-		default:
-			iNdEx = preIndex
-			skippy, err := skipService(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if skippy < 0 {
-				return ErrInvalidLengthService
-			}
-			if (iNdEx + skippy) < 0 {
-				return ErrInvalidLengthService
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *NodeMeasurement) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowService
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: NodeMeasurement: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: NodeMeasurement: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Measurements", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowService
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthService
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthService
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Measurements = append(m.Measurements, Measurement{})
-			if err := m.Measurements[len(m.Measurements)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 2:
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Nodename", wireType)
 			}
@@ -1122,40 +1927,39 @@ func (m *ProcessMeasurement) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Measurements", wireType)
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Timeslice", wireType)
 			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowService
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthService
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthService
-			}
-			if postIndex > l {
+			var v uint32
+			if (iNdEx + 4) > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Measurements = append(m.Measurements, Measurement{})
-			if err := m.Measurements[len(m.Measurements)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Timeslice = float32(math.Float32frombits(v))
 		case 2:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Cpu", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Cpu = float32(math.Float32frombits(v))
+		case 3:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Mem", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Mem = float32(math.Float32frombits(v))
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Nodename", wireType)
 			}
@@ -1187,7 +1991,7 @@ func (m *ProcessMeasurement) Unmarshal(dAtA []byte) error {
 			}
 			m.Nodename = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ProcessName", wireType)
 			}
@@ -1219,6 +2023,485 @@ func (m *ProcessMeasurement) Unmarshal(dAtA []byte) error {
 			}
 			m.ProcessName = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipService(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *NodeAvgReq) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowService
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: NodeAvgReq: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: NodeAvgReq: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Timeslice", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Timeslice = float32(math.Float32frombits(v))
+		default:
+			iNdEx = preIndex
+			skippy, err := skipService(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *NodeAvgResp) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowService
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: NodeAvgResp: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: NodeAvgResp: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Timeslice", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Timeslice = float32(math.Float32frombits(v))
+		case 2:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CpuUsed", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.CpuUsed = float32(math.Float32frombits(v))
+		case 3:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MemUsed", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.MemUsed = float32(math.Float32frombits(v))
+		default:
+			iNdEx = preIndex
+			skippy, err := skipService(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ProcessesAvgReq) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowService
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ProcessesAvgReq: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ProcessesAvgReq: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Timeslice", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Timeslice = float32(math.Float32frombits(v))
+		default:
+			iNdEx = preIndex
+			skippy, err := skipService(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ProcessesAvgResp) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowService
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ProcessesAvgResp: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ProcessesAvgResp: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Timeslice", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Timeslice = float32(math.Float32frombits(v))
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Processes", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowService
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthService
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthService
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Processes = append(m.Processes, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipService(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ProcessAvgReq) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowService
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ProcessAvgReq: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ProcessAvgReq: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Timeslice", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Timeslice = float32(math.Float32frombits(v))
+		default:
+			iNdEx = preIndex
+			skippy, err := skipService(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) < 0 {
+				return ErrInvalidLengthService
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ProcessAvgResp) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowService
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ProcessAvgResp: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ProcessAvgResp: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Timeslice", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.Timeslice = float32(math.Float32frombits(v))
+		case 2:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CpuUsed", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.CpuUsed = float32(math.Float32frombits(v))
+		case 3:
+			if wireType != 5 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MemUsed", wireType)
+			}
+			var v uint32
+			if (iNdEx + 4) > l {
+				return io.ErrUnexpectedEOF
+			}
+			v = uint32(encoding_binary.LittleEndian.Uint32(dAtA[iNdEx:]))
+			iNdEx += 4
+			m.MemUsed = float32(math.Float32frombits(v))
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NumInstances", wireType)
+			}
+			m.NumInstances = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowService
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.NumInstances |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipService(dAtA[iNdEx:])
