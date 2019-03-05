@@ -34,3 +34,12 @@ to see its results under following paths:
 * Any http2 caching proxy can be put in front of this service
 * Backend requires timescale database. Scaling + HA is similar to postgres database,
     sync/async replication + read only slave replicas
+
+* For backing timescale you could use https://github.com/helm/charts/tree/master/stable/postgresql
+with image set to `timescale/timescaledb:latest-pg11-bitnami`. Or as one-liner:
+
+`helm install stable/postgresql --set=image.repository=timescale/timescaledb --set=image.tag=latest-pg11-bitnami`
+
+Additionally remember for proper username/password setup:
+
+Don't forget to apply `bootstrap.sql` file to the database.

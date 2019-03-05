@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	svc "github.com/nmiculinic/metricsd/pkg/backends/sql"
 	"github.com/nmiculinic/metricsd/pkg/metricsd"
 	"github.com/stretchr/testify/suite"
 	"github.com/xo/dburl"
@@ -20,7 +19,7 @@ const dbURLEnv = "TEST_DBURL"
 type End2EndSuite struct {
 	suite.Suite
 	db  *sql.DB
-	svc svc.Metricsd
+	svc Metricsd
 }
 
 func (s *End2EndSuite) SetupTest() {

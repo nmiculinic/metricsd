@@ -3,7 +3,7 @@ FROM golang:alpine AS build-env
 WORKDIR /src
 RUN apk add git
 ADD . .
-RUN go build -o metricsd .
+RUN go build -o metricsd ./cmd/metricsd
 
 # final stage
 FROM alpine
