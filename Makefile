@@ -4,7 +4,7 @@ all: build test
 
 .PHONY: all
 build:
-	go build -o metricsd ./cmd/metricsd
+	go build -o metricsd .
 .PHONY: build
 
 run: build

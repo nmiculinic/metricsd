@@ -1,5 +1,7 @@
 module gitlab.com/neven-miculinic/metricsd
 
+go 1.12
+
 require (
 	github.com/gogo/protobuf v1.2.1
 	github.com/sirupsen/logrus v1.3.0
