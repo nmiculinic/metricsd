@@ -16,7 +16,8 @@ build:
     paths:
     - metricsd
   services:
-  - timescale/timescaledb:latest-pg11
+  - name: timescale/timescaledb:latest-pg11
+    alias: timescaledb
   variables:
     POSTGRES_DB: postgres
     PGDATABASE: postgres
