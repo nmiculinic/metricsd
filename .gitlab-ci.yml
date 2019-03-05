@@ -26,6 +26,8 @@ build:
 
     POSTGRES_PASSWORD: ""
     PGPASSWORD: ""
+
+    PGHOST: timescaledb
   before_script:
   - apt update && apt-get install -y postgresql-client
   - mkdir -p .cache/cache || true
@@ -33,7 +35,7 @@ build:
   - export GOCACHE=$(pwd)/.cache/cache
   - export GOPATH=$(pwd)/.cache/go
   - go env
-  - make bootstrap-db
+  - psql -f bootstrap.sql
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
