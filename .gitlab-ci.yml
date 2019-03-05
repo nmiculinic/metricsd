@@ -7,21 +7,20 @@ variables:
   GIT_STRATEGY: clone
   GIT_SUBMODULE_STRATEGY: none
   GO111MODULE: "on"
-  CI_DEBUG_TRACE: "true"
 
 build:
   after_script:
   - du -sh .cache
-  - du -sh $GOCACHE
   artifacts:
     expire_in: 30 days
     paths:
     - metricsd
   before_script:
-  - mkdir -p .cache || true
-  - export GOCACHE=$(pwd)/.cache
+  - mkdir -p .cache/cache || true
+  - mkdir -p .cache/go || true
+  - export GOCACHE=$(pwd)/.cache/cache
+  - export GOPATH=$(pwd)/.cache/go
   - go env
-  - ls -la
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
@@ -35,18 +34,16 @@ build:
   - docker
 
 build_docker:
-#  dependencies:
-#  - build
+  dependencies:
+  - build
   image: docker:git
   script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-  - docker build -t test .
   - IMAGE=${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME  ./.build_docker.sh
   - IMAGE=${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_SHA ./.build_docker.sh
   services:
   - docker:dind
-  #stage: docker
-  stage: build
+  stage: docker
   tags:
   - docker
 
