@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	addr := pflag.String("addr", "[::]:8080", "service listening address")
+	addr := pflag.String("addr", "[::]:5555", "service listening address")
 	dbURL := pflag.String("dburl", "", "backend database url. See https://github.com/xo/dburl for details")
 	pflag.Parse()
 

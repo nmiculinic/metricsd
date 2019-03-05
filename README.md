@@ -2,6 +2,23 @@
 
 Simple metrics aggregation service:
 
+
+# Client
+
+Use https://github.com/gogo/letmegrpc
+
+Install prereq:
+* `GO111MODULE=off go get  github.com/gogo/protobuf/...`
+* ...
+
+* `letmegrpc --addr=localhost:5555 --port=8080 service.proto `
+* Go to:
+    * http://localhost:8080/MetricsService/ReportProcessMeasurement
+    * http://localhost:8080/MetricsService/ReportNodeMeasurement
+    * http://localhost:8080/MetricsService/NodeAverages
+    * http://localhost:8080/MetricsService/ProcessesAverages
+    * http://localhost:8080/MetricsService/ProcessAverage
+
 # TODO
 
 * [*] gitlab CI + auto registry push

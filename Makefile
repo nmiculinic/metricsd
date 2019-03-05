@@ -1,4 +1,5 @@
 IMAGE=gitlab.com/neven-miculinic/metricsd
+TEST_DBURL=pg://postgres:root@localhost/postgres?sslmode=disable
 
 
 GIT_SHA=$(shell git rev-parse HEAD)
@@ -7,23 +8,23 @@ all: build test
 
 .PHONY: all
 build:
-	go build -o metricsd .
+	go build -o metricsd ./cmd/metricsd
 .PHONY: build
 
 static-build:
-	CGO_ENABLED=0 go build -a -ldflags '-extldflags "-static" -X github.com/nmiculinic/metricsd.Version=$(GIT_SHA)' -o metricsd .
+	CGO_ENABLED=0 go build -a -ldflags '-extldflags "-static" -X github.com/nmiculinic/metricsd.Version=$(GIT_SHA)' -o metricsd ./cmd/metricsd
 
-.PHONY: build
+PHONY: build
 
 run: build
-	./metricsd
+	./metricsd --dburl $(TEST_DBURL)
 
 test:
 	go test -v -race ./...
 .PHONY: test
 
 local-test:
-	TEST_DBURL=pg://postgres:root@localhost/postgres?sslmode=disable go test -v -race ./...
+	TEST_DBURL=$(TEST_DBURL) go test -v -race ./...
 .PHONY: test
 
 docker: build
@@ -31,7 +32,7 @@ docker: build
 .PHONY: docker-build
 
 proto: service.proto
-	protoc -I . --gogom_out=plugins=grpc:./pkg/metricsd service.proto
+	protoc -I .  --letmegrpc_out=pkg/metricsd --gogom_out=plugins=grpc:./pkg/metricsd service.proto
 
 .PHONY: proto
 
