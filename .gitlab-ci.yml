@@ -44,7 +44,7 @@ build:
   image: golang:1.12
   script:
   - make static-build
-  - make test
+  - make -e TEST_DBURL=${TEST_DBURL} test
   stage: build
   tags:
   - docker
