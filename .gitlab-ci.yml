@@ -42,7 +42,7 @@ build:
     - .cache
   image: golang:1.12
   script:
-  - make build
+  - make static-build
   - make test
   stage: build
   tags:
@@ -54,8 +54,8 @@ build_docker:
   image: docker:git
   script:
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-  - IMAGE=${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_REF_NAME  ./.build_docker.sh
-  - IMAGE=${CI_REGISTRY}/$CI_PROJECT_PATH:$CI_COMMIT_SHA ./.build_docker.sh
+  - IMAGE=${CI_REGISTRY}/$CI_PROJECT_PATH:${CI_COMMIT_REF_NAME}  ./.build_docker.sh
+  - IMAGE=${CI_REGISTRY}/$CI_PROJECT_PATH:${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHA:0:8} ./.build_docker.sh
   services:
   - docker:dind
   stage: docker

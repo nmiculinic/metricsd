@@ -1,10 +1,18 @@
 IMAGE=gitlab.com/neven-miculinic/metricsd
 
+
+GIT_SHA=$(shell git rev-parse HEAD)
+
 all: build test
 
 .PHONY: all
 build:
 	go build -o metricsd .
+.PHONY: build
+
+static-build:
+	go build -a -ldflags '-extldflags "-static" -X github.com/nmiculinic/metricsd.Version=$(GIT_SHA)' -o metricsd .
+
 .PHONY: build
 
 run: build

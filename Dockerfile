@@ -1,6 +1,7 @@
 FROM golang:alpine AS build-env
 
 WORKDIR /src
+RUN apk add git
 ADD . .
 RUN go build -o metricsd .
 
