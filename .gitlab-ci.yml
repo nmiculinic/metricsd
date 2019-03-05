@@ -27,6 +27,7 @@ build:
     POSTGRES_PASSWORD: ""
     PGPASSWORD: ""
   before_script:
+  - apt update && apt-get install -y postgresql-client
   - mkdir -p .cache/cache || true
   - mkdir -p .cache/go || true
   - export GOCACHE=$(pwd)/.cache/cache
