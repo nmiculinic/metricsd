@@ -16,16 +16,25 @@ func main() {
 	dbURL := pflag.String("dburl", "", "backend database url. See https://github.com/xo/dburl for details")
 	pflag.Parse()
 
+	u, err := dburl.Parse(*dbURL)
+	if err != nil {
+		logrus.WithError(err).Fatal("cannot parse database string")
+	}
+	logrus.
+		WithField("database", u.Path).
+		WithField("host", u.Host).
+		WithField("username", u.User.Username()).
+		Infoln("Trying to connect to")
 	db, err := dburl.Open(*dbURL)
 	if err != nil {
-		logrus.WithError(err).Error("cannot open database")
-		return
+		logrus.WithError(err).Fatal("cannot open database")
 	}
 	defer db.Close()
 	if err := db.Ping(); err != nil {
-		logrus.WithError(err).Errorln("cannot ping database")
-		return
+		logrus.WithError(err).Fatal("cannot ping database")
 	}
+
+	logrus.WithField("database", u.Path).WithField("host", u.Host).Infoln("successfully connected to database")
 
 	lis, err := net.Listen("tcp", *addr)
 	if err != nil {

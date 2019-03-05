@@ -1,7 +1,6 @@
 # metricsd
 
-Simple metrics aggregation service:
-
+Simple metrics aggregation service.
 
 # Client
 
@@ -23,7 +22,8 @@ to see its results under following paths:
 * [x] gitlab CI for database
 * [x] implement basic metrics pushing
 * [ ] Add golden file test
-* [ ] k8s/helm manifests
+* [x] k8s/helm manifests
+* [ ] Add database as chart dep
 * [ ] Add metrics quering
 * [ ] Add golden file test
 * [ ] Add pod local memcache
@@ -38,8 +38,32 @@ to see its results under following paths:
 * For backing timescale you could use https://github.com/helm/charts/tree/master/stable/postgresql
 with image set to `timescale/timescaledb:latest-pg11-bitnami`. Or as one-liner:
 
-`helm install stable/postgresql --set=image.repository=timescale/timescaledb --set=image.tag=latest-pg11-bitnami`
+```
+helm install \
+    --name timescaledb \
+    --set image.repository=timescale/timescaledb \
+    --set image.tag=latest-pg11-bitnami \
+    --set postgresqlDatabase=postgres \
+    --set postgresqlPassword=postgres \
+    --set fullnameOverride=timescaledb \
+    --set postgresqlExtendedConf.shared_preload_libraries='timescaledb' \
+    stable/postgresql
+```
 
 Additionally remember for proper username/password setup:
 
-Don't forget to apply `bootstrap.sql` file to the database.
+Don't forget to apply `bootstrap.sql` file to the database; e.g.
+```
+kubectl port-forward service/timescaledb 5432:5432
+make bootstrap-db
+```
+
+# Development
+
+Makefile is provided. Most important workflow is:
+
+* make start-test-db -- start dev database
+* bootstrap-db -- apply bootstrap.sql
+* make test -- run tests without need for database
+* make local-test -- to run tests including the local database
+* make run -- to run service including the local database
