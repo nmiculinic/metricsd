@@ -1,6 +1,6 @@
 # metricsd
 
-Simple metrics aggregation service:
+Simple metrics aggregation service.
 
 
 # Client
@@ -24,6 +24,7 @@ to see its results under following paths:
 * [x] implement basic metrics pushing
 * [ ] Add golden file test
 * [ ] k8s/helm manifests
+* [ ] Add database as chart dep
 * [ ] Add metrics quering
 * [ ] Add golden file test
 * [ ] Add pod local memcache
