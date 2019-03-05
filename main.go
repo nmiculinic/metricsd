@@ -20,7 +20,7 @@ func main() {
 	logrus.Infof("listening on %v", lis.Addr())
 
 	s := grpc.NewServer()
-	metricsd.RegisterMetricsServiceServer(s, &sql.SQLBackend{})
+	metricsd.RegisterMetricsServiceServer(s, &sql.Metricsd{})
 	if err := s.Serve(lis); err != nil {
 		logrus.WithError(err).Fatalln("failed to serve")
 	}
