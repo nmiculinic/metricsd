@@ -40,18 +40,23 @@ with image set to `timescale/timescaledb:latest-pg11-bitnami`. Or as one-liner:
 
 ```
 helm install \
+    --name timescaledb \
     --set image.repository=timescale/timescaledb \
     --set image.tag=latest-pg11-bitnami \
     --set postgresqlDatabase=postgres \
     --set postgresqlPassword=postgres \
     --set fullnameOverride=timescaledb \
+    --set postgresqlExtendedConf.shared_preload_libraries='timescaledb' \
     stable/postgresql
 ```
 
 Additionally remember for proper username/password setup:
 
-Don't forget to apply `bootstrap.sql` file to the database.
-(( Also you'll have to preload timescale extension ))
+Don't forget to apply `bootstrap.sql` file to the database; e.g.
+```
+kubectl port-forward service/timescaledb 5432:5432
+make bootstrap-db
+```
 
 # Development
 
