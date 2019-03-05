@@ -11,7 +11,7 @@ build:
 .PHONY: build
 
 static-build:
-	go build -a -ldflags '-extldflags "-static" -X github.com/nmiculinic/metricsd.Version=$(GIT_SHA)' -o metricsd .
+	CGO_ENABLED=0 go build -a -ldflags '-extldflags "-static" -X github.com/nmiculinic/metricsd.Version=$(GIT_SHA)' -o metricsd .
 
 .PHONY: build
 
