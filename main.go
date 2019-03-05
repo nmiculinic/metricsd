@@ -1,4 +1,4 @@
-package metricsd
+package main
 
 import (
 	"github.com/sirupsen/logrus"

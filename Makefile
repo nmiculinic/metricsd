@@ -22,3 +22,7 @@ proto: service.proto
 	protoc -I . --gogom_out=plugins=grpc:./pkg/metricsd service.proto
 
 .PHONY: proto
+
+clean:
+	go clean -cache -modcache -testcache
+.PHONY: clean
