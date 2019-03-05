@@ -25,8 +25,8 @@ build:
     POSTGRES_USER: postgres
     PGUSER: postgres
 
-    POSTGRES_PASSWORD: ""
-    PGPASSWORD: ""
+    POSTGRES_PASSWORD: "postgres"
+    PGPASSWORD: "postgres"
 
     PGHOST: timescaledb
   before_script:
