@@ -39,7 +39,15 @@ to see its results under following paths:
 * For backing timescale you could use https://github.com/helm/charts/tree/master/stable/postgresql
 with image set to `timescale/timescaledb:latest-pg11-bitnami`. Or as one-liner:
 
-`helm install stable/postgresql --set=image.repository=timescale/timescaledb --set=image.tag=latest-pg11-bitnami`
+```
+helm install \
+    --set image.repository=timescale/timescaledb \
+    --set image.tag=latest-pg11-bitnami \
+    --set postgresqlDatabase=postgres \
+    --set postgresqlPassword=postgres \
+    --set fullnameOverride=timescaledb \
+    stable/postgresql
+```
 
 Additionally remember for proper username/password setup:
 
