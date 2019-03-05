@@ -58,6 +58,11 @@ kubectl port-forward service/timescaledb 5432:5432
 make bootstrap-db
 ```
 
+Afterwards it's enough installing this chart (optionally overrided `dburl`)
+```$
+helm install ./chart
+```
+
 # Development
 
 Makefile is provided. Most important workflow is:
