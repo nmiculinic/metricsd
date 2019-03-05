@@ -19,7 +19,11 @@ run: build
 	./metricsd
 
 test:
-	go test -race ./...
+	go test -v -race ./...
+.PHONY: test
+
+local-test:
+	TEST_DBURL=pg://postgres:root@localhost/postgres?sslmode=disable go test -v -race ./...
 .PHONY: test
 
 docker: build

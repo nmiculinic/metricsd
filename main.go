@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "github.com/lib/pq"
 	"github.com/nmiculinic/metricsd/pkg/backends/sql"
 	"github.com/nmiculinic/metricsd/pkg/metricsd"
 	"github.com/sirupsen/logrus"

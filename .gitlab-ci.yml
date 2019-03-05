@@ -28,6 +28,7 @@ build:
     POSTGRES_PASSWORD: "postgres"
     PGPASSWORD: "postgres"
 
+    TEST_DBURL: pg://postgres:postgres@timescaledb/postgres?sslmode=disable
   before_script:
   - apt-get update && apt-get install -y postgresql-client
   - mkdir -p .cache/cache || true
