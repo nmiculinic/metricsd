@@ -47,3 +47,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# TODO: Make it dependant chart if required
+dburl:
+  "pg://postgres:postgres@timescaledb/postgres?sslmode=disable"
