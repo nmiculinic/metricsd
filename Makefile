@@ -26,3 +26,15 @@ proto: service.proto
 clean:
 	go clean -cache -modcache -testcache
 .PHONY: clean
+
+start-test-db:
+	docker run --rm -it -p 5432:5432 --name postgresql -e POSTGRES_PASSWORD=root timescale/timescaledb:latest-pg11
+.PHONY: start-test-db
+
+psql-db:
+	PGHOST=localhost PGPASSWORD=root PGUSER=postgres PGDATABASE=postgres psql
+.PHONY: psql-db
+
+bootstrap-db:
+	PGHOST=localhost PGPASSWORD=root PGUSER=postgres PGDATABASE=postgres psql -f bootstrap.sql
+.PHONY: bootsrap-db

@@ -15,12 +15,27 @@ build:
     expire_in: 30 days
     paths:
     - metricsd
+  services:
+  - name: timescale/timescaledb:latest-pg11
+    alias: timescaledb
+  variables:
+    POSTGRES_DB: postgres
+    PGDATABASE: postgres
+
+    POSTGRES_USER: postgres
+    PGUSER: postgres
+
+    POSTGRES_PASSWORD: "postgres"
+    PGPASSWORD: "postgres"
+
   before_script:
+  - apt-get update && apt-get install -y postgresql-client
   - mkdir -p .cache/cache || true
   - mkdir -p .cache/go || true
   - export GOCACHE=$(pwd)/.cache/cache
   - export GOPATH=$(pwd)/.cache/go
   - go env
+  - PGHOST=timescaledb psql -f bootstrap.sql
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:

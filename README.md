@@ -6,8 +6,11 @@ Simple metrics aggregation service:
 
 * [*] gitlab CI + auto registry push
 * [ ] gitlab CI for database
-* [ ] integration tests
+* [ ] implement basic metrics pushing
+* [ ] Add golden file test
 * [ ] k8s/helm manifests
+* [ ] Add metrics quering
+* [ ] Add golden file test
 * [ ] Add pod local memcache
 
 # Deployment
