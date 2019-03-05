@@ -5,13 +5,11 @@ Simple metrics aggregation service:
 
 # Client
 
-Use https://github.com/gogo/letmegrpc
+For local testing gRPC visual client is provided
 
-Install prereq:
-* `GO111MODULE=off go get  github.com/gogo/protobuf/...`
-* ...
+It's located under `cmd/demo-client` and after running you should be about
+to see its results under following paths:
 
-* `letmegrpc --addr=localhost:5555 --port=8080 service.proto `
 * Go to:
     * http://localhost:8080/MetricsService/ReportProcessMeasurement
     * http://localhost:8080/MetricsService/ReportNodeMeasurement
@@ -21,9 +19,9 @@ Install prereq:
 
 # TODO
 
-* [*] gitlab CI + auto registry push
-* [ ] gitlab CI for database
-* [ ] implement basic metrics pushing
+* [x] gitlab CI + auto registry push
+* [x] gitlab CI for database
+* [x] implement basic metrics pushing
 * [ ] Add golden file test
 * [ ] k8s/helm manifests
 * [ ] Add metrics quering
