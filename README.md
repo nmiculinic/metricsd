@@ -2,7 +2,6 @@
 
 Simple metrics aggregation service.
 
-
 # Client
 
 For local testing gRPC visual client is provided
@@ -53,3 +52,13 @@ Additionally remember for proper username/password setup:
 
 Don't forget to apply `bootstrap.sql` file to the database.
 (( Also you'll have to preload timescale extension ))
+
+# Development
+
+Makefile is provided. Most important workflow is:
+
+* make start-test-db -- start dev database
+* bootstrap-db -- apply bootstrap.sql
+* make test -- run tests without need for database
+* make local-test -- to run tests including the local database
+* make run -- to run service including the local database
