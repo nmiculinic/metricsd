@@ -20,6 +20,7 @@ func main() {
 	if err != nil {
 		logrus.WithError(err).Fatal("cannot parse database string")
 	}
+	logrus.WithField("database", u.Path).WithField("host", u.Host).Infoln("Trying to connect to")
 	db, err := dburl.Open(*dbURL)
 	if err != nil {
 		logrus.WithError(err).Fatal("cannot open database")
