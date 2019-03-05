@@ -52,3 +52,4 @@ helm install \
 Additionally remember for proper username/password setup:
 
 Don't forget to apply `bootstrap.sql` file to the database.
+(( Also you'll have to preload timescale extension ))
