@@ -31,7 +31,6 @@ to see its results under following paths:
 
 # Deployment
 
-* Any http2 caching proxy can be put in front of this service
 * Backend requires timescale database. Scaling + HA is similar to postgres database,
     sync/async replication + read only slave replicas
 
